@@ -36,6 +36,7 @@ room['treasure'].s_to = room['narrow']
 #
 # Main
 #
+from player import Player
 
 # Make a new player object that is currently in the 'outside' room.
 
@@ -49,3 +50,24 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+validMovement = ['n', 'north', 'e', 'east', 's', 'south', 'w', 'west']
+
+
+def app():
+    running = True
+    player1 = Player(room['outside'])
+    msg = False
+    while running:
+        print(player1.room)
+        msg = input()
+        if msg == '':
+            continue
+        elif msg == 'q':
+            running = False
+        elif msg in validMovement:
+            success = player1.move(msg)
+            if not success:
+                print('Movement not allowed')
+
+
+app()
