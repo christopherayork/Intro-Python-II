@@ -3,8 +3,10 @@
 
 
 class Player:
-    def __init__(self, room):
+    def __init__(self, name, room):
+        self.name = name
         self.room = room
+        self.items = []
 
     def move(self, d):
         if not isinstance(d, str):
@@ -26,3 +28,27 @@ class Player:
                 self.room = self.room.w_to
                 return True
         return False
+
+    def grab(self, query):
+        found = False
+        for item in self.room.items:
+            if query == item:
+                found = True
+                self.items.append(item)
+                print(f'You pick up {item}')
+                self.room.remove_item(item)
+                break
+        if not found:
+            print('Invalid item')
+
+    def drop(self, query):
+        found = False
+        for item in self.items:
+            if query == item:
+                found = True
+                self.items.remove(item)
+                print(f'You drop {item}')
+                self.room.add_item(item)
+                break
+        if not found:
+            print('Invalid item')

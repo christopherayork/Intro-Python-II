@@ -21,6 +21,12 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
 }
 
+room['outside'].add_item('Sword')
+room['foyer'].add_item('Candle')
+room['overlook'].add_item('Shield')
+room['narrow'].add_item('Dusty_Tome')
+room['treasure'].add_item('Golden_Dagger')
+
 
 # Link rooms together
 
@@ -55,7 +61,7 @@ validMovement = ['n', 'north', 'e', 'east', 's', 'south', 'w', 'west']
 
 def app():
     running = True
-    player1 = Player(room['outside'])
+    player1 = Player('Player1', room['outside'])
     msg = False
     while running:
         print(player1.room)
@@ -68,6 +74,20 @@ def app():
             success = player1.move(msg)
             if not success:
                 print('Movement not allowed')
+        elif 'grab' in msg:
+            args = msg.split(' ')
+            if len(args) < 2:
+                print('You must specify what to grab')
+                continue
+            player1.grab(args[1])
+            continue
+        elif 'drop' in msg:
+            args = msg.split(' ')
+            if len(args) < 2:
+                print('You must specify what to drop')
+                continue
+            player1.drop(args[1])
+            continue
 
 
 app()
