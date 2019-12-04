@@ -1,4 +1,4 @@
-from room import Room
+# from room import Room
 
 
 class Mob:
@@ -35,6 +35,7 @@ class Mob:
         if not isinstance(d, str):
             return False
         findRoom = getattr(self.room, f'{d[0:1]}_to')
+        from room import Room
         if not isinstance(findRoom, Room):
             print('You can\'t move that way.')
             return False
@@ -42,6 +43,7 @@ class Mob:
         return True
 
     def move_to(self, room):
+        from room import Room
         if not isinstance(room, Room):
             return False
         self.room = room
@@ -74,3 +76,13 @@ class Mob:
                 break
         if not found:
             print('Invalid item')
+
+
+class Player(Mob):
+    def __init__(self, name, desc, room):
+        Mob.__init__(self, name, desc, room)
+
+    def inventory(self):
+        print('### Your inventory ###')
+        for i in self.items:
+            print(i)

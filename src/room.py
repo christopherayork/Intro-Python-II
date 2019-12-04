@@ -1,9 +1,8 @@
 # Implement a class to hold room information. This should have name and
 # description attributes.
-from mob import Mob
 
 
-class Room(Mob):
+class Room:
     def __init__(self, name, desc):
         self.name = name
         self.desc = desc
@@ -32,9 +31,10 @@ class Room(Mob):
         self.items.remove(item)
 
     def enter(self, mob):
+        from mob import Mob
         if not isinstance(mob, Mob):
             return False
-        self.entered(mob)
+        return self.entered(mob)
 
     def entered(self, mob):
         allowed = mob.move_to(self)
