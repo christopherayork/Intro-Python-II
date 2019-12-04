@@ -1,4 +1,5 @@
 from room import Room
+from item import Item
 
 # Declare all the rooms
 
@@ -21,11 +22,13 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
 }
 
-room['outside'].add_item('Sword')
-room['foyer'].add_item('Candle')
-room['overlook'].add_item('Shield')
-room['narrow'].add_item('Dusty_Tome')
-room['treasure'].add_item('Golden_Dagger')
+room['outside'].add_item(Item('Iron_Sword', 'This is a sword forged from iron. Fairly sturdy, sharp enough for '
+                                            'general combat.'))
+room['foyer'].add_item(Item('Wax_Candle', 'This is a candle made of wax. It produces a small amount of light.'))
+room['overlook'].add_item(Item('Iron_Shield', 'An iron shield built for protection.'))
+room['narrow'].add_item(Item('Dusty_Tome', 'A very old looking tome. It may be useful for something...'))
+room['treasure'].add_item(Item('Golden_Dagger', 'A dagger adorned with gold. It looks very expensive, but it\'s '
+                                                'combat ability is up for debate.'))
 
 
 # Link rooms together
@@ -71,9 +74,7 @@ def app():
         elif msg == 'q':
             running = False
         elif msg in validMovement:
-            success = player1.move(msg)
-            if not success:
-                print('Movement not allowed')
+            player1.move(msg)
         elif 'grab' in msg:
             args = msg.split(' ')
             if len(args) < 2:
@@ -88,6 +89,8 @@ def app():
                 continue
             player1.drop(args[1])
             continue
+        elif msg == 'i' or msg == 'inventory':
+            player1.inventory()
 
 
 app()

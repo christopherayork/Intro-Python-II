@@ -7,6 +7,10 @@ class Room:
         self.name = name
         self.desc = desc
         self.items = []
+        self.n_to = False
+        self.e_to = False
+        self.s_to = False
+        self.w_to = False
 
     def __str__(self):
         items = ''
